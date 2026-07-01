@@ -1,0 +1,9 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Keep Windows wrapper script with CRLF line endings
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Keep Unix wrapper script with LF line endings
+mvnw text eol=lf
