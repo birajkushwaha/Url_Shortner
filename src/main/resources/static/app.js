@@ -1,5 +1,5 @@
 // Local Storage Key
-const LOCAL_STORAGE_KEY = 'zippy_shortened_links';
+const LOCAL_STORAGE_KEY = 'microurl_shortened_links';
 
 // Document Elements
 const shortenTab = document.getElementById('shorten-tab');
