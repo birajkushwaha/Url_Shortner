@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZIPPY | Premium URL Shortener</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-bolt logo-icon"></i>
+                <span>ZIPPY</span>
+            </div>
+            <p class="subtitle">Streamlined, secure, and lightning-fast link shortening.</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('shorten')">
+                <i class="fa-solid fa-link"></i> Shorten
+            </button>
+            <button class="tab-btn" onclick="switchTab('analytics')">
+                <i class="fa-solid fa-chart-simple"></i> Analytics
+            </button>
+        </div>
+
+        <!-- Shorten Tab -->
+        <div id="shorten-tab" class="tab-content active">
+            <div class="card">
+                <h2>Shorten a Long Link</h2>
+                <p class="card-desc">Enter your long URL below to generate a short, shareable link.</p>
+                <form id="shorten-form" onsubmit="handleShorten(event)">
+                    <div class="input-group">
+                        <i class="fa-regular fa-compass input-icon"></i>
+                        <input type="url" id="long-url" placeholder="https://example.com/very-long-link-url" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="shorten-submit">
+                        <span>Shorten Link</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Result Box -->
+                <div id="result-box" class="result-box hide">
+                    <div class="result-header">
+                        <h3>Your Short Link is Ready!</h3>
+                    </div>
+                    <div class="result-link-wrapper">
+                        <input type="text" id="shortened-url" readonly>
+                        <button onclick="copyToClipboard('shortened-url', 'copy-btn')" id="copy-btn" class="btn btn-copy" title="Copy to clipboard">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="qr-section">
+                        <div class="qr-container">
+                            <img id="qr-code-img" src="" alt="QR Code">
+                        </div>
+                        <p class="qr-desc">Scan to open the shortened link instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics-tab" class="tab-content">
+            <div class="card">
+                <h2>Link Analytics</h2>
+                <p class="card-desc">Enter a short key (the 7 characters at the end of your link) to see click counts and stats.</p>
+                <form id="analytics-form" onsubmit="handleAnalytics(event)">
+                    <div class="input-group">
+                        <i class="fa-solid fa-key input-icon"></i>
+                        <input type="text" id="short-key" placeholder="e.g. GvJj5FE" pattern="[a-zA-Z0-9]{7}" title="Must be exactly 7 alphanumeric characters" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="analytics-submit">
+                        <span>Track Link</span>
+                        <i class="fa-solid fa-chart-line"></i>
+                    </button>
+                </form>
+
+                <!-- Analytics Result -->
+                <div id="analytics-result" class="result-box hide">
+                    <h3>Analytics Report</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-label">Clicks</span>
+                            <span class="stat-value" id="stat-clicks">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">Created At</span>
+                            <span class="stat-value date" id="stat-date">-</span>
+                        </div>
+                    </div>
+                    <div class="stat-detail">
+                        <span class="stat-label">Original URL</span>
+                        <a href="#" id="stat-original-url" class="stat-url" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Card -->
+        <div class="card history-card hide" id="history-card">
+            <div class="history-header">
+                <h2>Recent Links</h2>
+                <button onclick="clearHistory()" class="btn btn-clear" title="Clear History">
+                    <i class="fa-regular fa-trash-can"></i> Clear
+                </button>
+            </div>
+            <div class="table-wrapper">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Short Link</th>
+                            <th>Original Link</th>
+                            <th>Clicks</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-body">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Powered by Spring Boot 3 & PostgreSQL. Deployed Live on Render & Neon.</p>
+        </footer>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="/app.js"></script>
+</body>
+</html>

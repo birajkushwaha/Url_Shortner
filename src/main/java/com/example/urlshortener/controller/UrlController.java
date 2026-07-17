@@ -32,7 +32,7 @@ public class UrlController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/{shortKey}")
+    @GetMapping("/{shortKey:[a-zA-Z0-9]{7}}")
     public ResponseEntity<Void> redirectToOriginal(
             @PathVariable String shortKey) {
         
